@@ -1,6 +1,8 @@
 'use client';
 
+import { updateInvoice } from '@/app/lib/actions';
 import { CustomerField, InvoiceForm } from '@/app/lib/definitions';
+import { Button } from '@/app/ui/button';
 import {
   CheckIcon,
   ClockIcon,
@@ -8,17 +10,17 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { Button } from '@/app/ui/button';
 
-export default function EditInvoiceForm({
-  invoice,
-  customers,
-}: {
+interface EditInvoiceFormProps {
   invoice: InvoiceForm;
   customers: CustomerField[];
-}) {
+}
+
+const EditInvoiceForm = ({ invoice, customers }: EditInvoiceFormProps) => {
+  const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+
   return (
-    <form>
+    <form action={updateInvoiceWithId}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
@@ -120,4 +122,6 @@ export default function EditInvoiceForm({
       </div>
     </form>
   );
-}
+};
+
+export default EditInvoiceForm;
